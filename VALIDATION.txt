@@ -1,0 +1,223 @@
+PDFPRO — MOVABLE, MINIMISABLE PAGE TOOLBAR
+Date: 26 October 2026 (Asia/Singapore)
+Standalone HTML SHA256: b0f234a68d4523ccf06d5b2dee0129eae0f619ae3311d85fafe0076cfdf749a2
+
+CHANGES
+- The page/zoom/Fit toolbar can minimise, float with a draggable handle, or lock
+  to the top or bottom across the PDF working area's width. Locked bars cannot drag.
+- Minimise retains a compact current-page summary and a restore control. The
+  position menu and reset remain available in compact mode.
+- Floating positions stay within the working area on resize. Keyboard arrow keys
+  move the handle, with Shift for larger steps; cancelled drags restore the last
+  position. In-progress movement is not persisted before pointer release.
+- Toolbar mode, normalised floating position and minimisation recover locally.
+  Toolbar changes preserve PDF bytes, document scroll and the active PDF tool.
+- The document and toolbar share a stage so fullscreen includes both. The stage
+  sits between the left navigation and any right tool dock, above page previews.
+- Draw now uses its own freehand gesture with a live rounded stroke preview,
+  rather than the area-selection rectangle. Every saved point follows that path.
+- Native PDF Ink annotations retain pen samples (including coalesced movement and
+  release points), with separate gestures stored as separate strokes.
+- Only the active primary pointer can extend/end a stroke. Cancellation, lost
+  capture, tool changes and page rerenders discard incomplete gestures safely.
+- Colour, width, zoom, page origin and drawing page are captured for the gesture;
+  later settings cannot alter the stroke being saved. A tap creates a small dot.
+- Text appearance settings use a wider, shallow card with a smaller font sample
+  and a close button. Closing settings leaves the selected placement tool active.
+- Placing a sticky note, text comment, page text, stamp, image, drawing, link,
+  form field or visual signature retains the active tool for repeated use.
+- Clicking the same feature toggles it off. Choosing another feature replaces it.
+  Browsing categories retains it; Done/Escape still exits placement mode.
+- Returning to a document restores its own selected tool. Pending placement data
+  and original PDF coordinates are retained when the settings popup is dismissed.
+- A strict build-time cap keeps the HTML below 25,000,000 bytes (decimal 25 MB).
+- Shared PDF/OCR/font/model/source bytes are stored once. Identical source files
+  share compressed chunks. Engines, model, font, PDF tools and storage are retained.
+- About > Download source bundle reconstructs every source path and file locally.
+  Existing compressed chunks are copied directly. Shared assets use native browser
+  compression when available, with a valid stored-ZIP fallback when unavailable.
+- Source export requires no network or new ZIP decoder. Licences/notices remain.
+- A single slim action header, secondary-action menu, soft navy-tinted canvas,
+  floating page controls, refined white tool panes and maroon primary actions.
+- Home retains open tabs and displays up to six recent PDFs with native first-page
+  thumbnails and document-specific Resume actions. Closed copies reopen in one tab;
+  existing copies resume without duplication. Library holds the complete list.
+- Preview PNGs are bounded, memory-only and invalidated by content revision rather
+  than view changes. Invalid saved PDFs have a preview fallback and safe failure.
+- Font/colour/size controls are contextual; drawing tools expose actual stroke width.
+  Decoration/batch/signature dialogs carry their own appearance controls.
+- Secondary actions support keyboard navigation, Escape, outside-pointer dismissal
+  and dismissal when focus leaves. Dark theme and reduced motion remain supported.
+- IndexedDB retains uploaded PDFs, edits, original bytes, undo/redo, selected images,
+  pending redactions, search and document views. Open tabs restore at startup.
+- Closed tabs remain available in Local library; explicit Remove deletes a closed copy.
+- Critical PDF edits commit before their action completes. View-only updates write
+  small view records rather than rewriting PDF binaries.
+- PDF/view/catalogue/session changes commit atomically; queued writes preserve newer edits.
+- Saved, pending, saving, unavailable and failure states are shown in the footer.
+  Quota failures retain in-memory work and the last complete database snapshot.
+- Closed copies can be deleted to free storage while quota-limited saves are failing.
+- Revision conflicts stop stale app windows from overwriting newer saved workspaces.
+- Invalid recovery records are isolated, not silently deleted. Healthy PDFs still open.
+- The left navigation has icons with labels and can collapse to a 60-pixel icon bar.
+  Collapsed groups retain accessible names and tooltips; the choice is restored.
+- Theme, right docking, preview mode and document font are also recovered.
+- Local copies can include unlocked source bytes and pre-redaction undo history;
+  this retention is explained in Library/About/README. Downloads remain separate.
+
+CURRENT REVISION CHECKS
+781 assertions passed across the seven existing PDF/DOM/storage suites (563),
+source packaging unit checks (34), source-export UI checks (17) and repeated
+placement checks (40), plus freehand drawing checks (65) and toolbar checks (62).
+
+node page-toolbar-test.mjs: 62 assertions passed using a controlled DOM with
+simulated working-area geometry/IndexedDB and real PDF bytes. No browser layout
+or actual fullscreen implementation is asserted.
+- Floating/default placement, two-axis dragging, primary-button/pointer ownership.
+- Bounds on movement/resize, cancelled drags, stable saved preferences during drag.
+- Minimise/restore, current page summary, accessible states and keyboard movement.
+- Top/bottom lock selection, working-area anchoring, full-width CSS and drag lock.
+- Outside dismissal, menu Escape without deselecting PDF tools, reset and restoration.
+- Toolbar preference writes avoid PDF binary rewrites; PDF bytes and scroll remain.
+- Fullscreen targets the combined document/toolbar stage; fresh app restores layout.
+
+node freehand-test.mjs: 65 assertions passed using native Ink annotation paths,
+rendered PDF pixels, a controlled DOM and simulated IndexedDB.
+- Live preview paths and saved InkList points agree, including dense curved paths.
+- There is no area selector, stray connecting segment or replacement-area expansion.
+- One annotation per stroke; primary-pointer ownership and coalesced event ordering.
+- Pen taps, chosen colour/width, native pixels at the sampled positions and no ink
+  in an unused region. A native PDF render was inspected as an image.
+- Escape, pointercancel, lost capture, tool switching, scrolling and zoom rerenders cancel safely.
+- Nonzero page origins, 90/180/270-degree rotation and multiple zoom levels.
+- Undo/redo, repeated strokes, unchanged samples after export and fresh-instance recovery.
+
+node placement-tools-test.mjs: 40 assertions passed using real PDF processing in
+a controlled test DOM with simulated IndexedDB. No browser layout is asserted.
+- Repeated native sticky notes, FreeText comments, stamps and drawing annotations.
+- Repeated searchable page text, reused images, real AcroForm fields and signatures.
+- Active button/aria states, same-feature toggle-off and document-action switching.
+- Smaller font preview, settings dismissal without deselection and exact drag bounds.
+- Entry cancellation, per-document tool recovery and persisted tool state.
+
+node source-package-test.mjs: 34 assertions passed using native ZIP/DEFLATE decoding.
+- Every shared asset and source alias retains its original bytes and nested paths.
+- ZIPs produced with native compression and the fallback both decode correctly.
+- Metadata, shared-asset integrity, unsafe paths and missing data fail clearly.
+- Legacy full-archive payloads are supported.
+
+node source-export-ui-test.mjs: 17 assertions passed in a controlled test DOM
+using the actual release payload, real source ZIPs and synthetic PDF bytes.
+- About > Download source bundle exports all files with correct nested paths.
+- Duplicate clicks produce one download; progress and completion state are clear.
+- Licence/notices downloads are unchanged. Source exports leave PDF/history intact.
+- A damaged shared asset reports an error, restores the button and permits retry.
+
+node packaging-release-test.mjs validates the actual emitted HTML/source/release ZIPs.
+- HTML remains below the stricter decimal 25 MB cap.
+- The production gzip bootstrap uses the same data as independent native decoding.
+- Every offline-export source file matches the standalone source archive and local
+  application/vendor/dependency sources, with and without compression support.
+- PDF background worker, MuPDF WASM, all OCR assets and Inter match the previous
+  release byte for byte when the captured pre-change baseline is available.
+- Release ZIP CRCs, hashes, notices, source kit and identical hosted index.html.
+
+node ui-refresh-test.mjs: 75 assertions passed using a controlled test DOM,
+simulated IndexedDB and real MuPDF/pdf-lib PDFs and thumbnail PNGs.
+- Home/Resume preserve edits, undo and views; active/closed copies do not duplicate.
+- Previews are real bounded PNGs, cached across view changes and refreshed after edits.
+- Escaped filenames, saved/open badges, dates and a six-document rendering bound.
+- Closing tabs from Home keeps Home visible; damaged records do not break healthy ones.
+- Unavailable storage has a useful empty state and does not prevent manual PDF work.
+- Contextual text/drawing/search options, font choice, Done and right-dock behaviour.
+- Keyboard/action-menu dismissal; actual watermark creation through its font dialog.
+- Cancelled appearance changes do not mutate the document or chosen font.
+- Fresh app instances recover the latest edited PDF and contextual font choice.
+The test DOM parses the embedded CSS but does not provide browser layout rendering.
+
+node local-store-test.mjs: 52 assertions passed using fake-indexeddb.
+- Atomic PDF/view/catalogue/manifest writes, typed-array round trips and fresh connections.
+- View-only updates avoid PDF rewrites; pending-mark catalogue data stays current.
+- View-only saves retain preview content revisions; binary edits advance them.
+- Closing tabs retains stored copies and releases binary fingerprints from app memory.
+- Quota rollback retains matching old bytes/views; deletion and subsequent retry work.
+- Stale-window revisions fail without overwriting newer data.
+- Delayed in-flight snapshots remain immutable; newer queued edits/history/marks win.
+
+node persistence-interactions-test.mjs: 64 assertions passed in independent test DOM
+instances using fake-indexeddb and real MuPDF/pdf-lib PDF processing.
+- Uploaded files and edits commit before the corresponding UI action completes.
+- New app instances recover tab order/active ID, bytes/edits/history/marks/font/search/view.
+- Collapsed navigation, right dock, preview mode and dark theme recover.
+- Navigation icons/labels/tooltips and collapsed group activation remain usable.
+- Saved work avoids a discard warning; failed local writes warn and remain exportable.
+- Closed PDFs remain in Library, reopen after restart, and support explicit deletion.
+- Quota failures and window conflicts show truthful failure states without losing memory edits.
+- Damaged saved copies do not block healthy recovery; unavailable storage is explained.
+
+node fonts-previews-test.mjs: 107 assertions passed with real PDF processing in
+jsdom/native canvas. This is a controlled DOM, not a browser layout engine.
+- Exactly 30 distinct font choices, selector sample, default and per-tab font choice.
+- Compact/expanded control state, all page tiles retained and clickable, no PDF rewrite.
+- Every font produces a PNG appearance; installed serif/monospace faces differ visibly.
+- Transparent glyph pixels, full-resolution dimensions and overflow rejection.
+- Saved Unicode page text remains extractable and searchable, including Japanese.
+- Native FreeText/Stamp subtypes and full Contents at 0/90/180/270 degrees.
+- Complete-box replacement removes visible pixels, search content and old image objects;
+  unrelated vector graphics remain. Partial-box selection is refused.
+- Resized boxes stay replaceable and duplicate-page replacement is isolated.
+- Page numbering and batch watermark exports remain searchable; batch leaves active PDF intact.
+- A native PDF render was inspected as an image to verify the saved font appearance.
+
+node tabs-interactions-test.mjs: 115 assertions passed in a controlled test DOM
+using real MuPDF and pdf-lib PDF processing, jsdom and native canvas.
+- Multiple uploads, duplicate names and escaped untrusted filenames.
+- Independent bytes, original copies, views, histories, search, images and redaction marks.
+- Active-only saving/undo, inactive unsaved unload warning, safe tab close/cancel/final empty state.
+- Deferred signature inspection blocks switching; deferred uploads block editing.
+- Invalid PDFs preserve current documents; password cancellation and successful unlock are isolated.
+- PDF/PNG/JPEG mixed input groups images without consuming the selected PDFs.
+- Real redaction placement sets/clears unsaved tab badges without rewriting the PDF.
+- Comment placement survives outside dismissal and retains its selected coordinates.
+- Docking, settings, inside/outside click handling and accessible SVG icon controls.
+- New, sample and restored workspaces open new tabs and retain their own pending marks.
+
+node annotations-test.mjs: 122 assertions passed using real MuPDF PDF bytes.
+- Visible glyphs and transparent saved/reopened FreeText/Stamp appearances.
+- Correct subtype and full contents; rotations, wrapping/shrinking, overflow/glyph rejection.
+
+node annotation-interactions-test.mjs: 28 assertions passed using a controlled DOM.
+- Full multiline comment and stamp contents open by body click or accessible button.
+- Text selection/dragging, undo/redo, page navigation, stale targets and hidden annotations.
+- Legacy opaque comments remain readable; contents are escaped and viewing is read-only.
+- Left pane and bottom previews remain available; small-screen placement closes the drawer.
+
+Syntax checks passed for the changed app, source package module, build/test scripts
+and the emitted application bundle.
+Build embeds runtime styles, Inter, JS, PDF/OCR runtimes, model and source locally.
+System-font appearances use installed faces; their font files are not bundled.
+The GitHub package index.html matches the standalone HTML; ZIPs and hashes are checked.
+
+VERIFICATION LIMIT
+The browser tool previously rejected inspection of this app's file:// tab because the
+protocol is blocked. No alternate browser path was used to access that blocked tab.
+This revision's interactions were verified in a controlled test DOM, not a browser
+layout engine. IndexedDB transactions used fake-indexeddb, not an actual browser profile.
+Storage availability/durability at this file:// URL or in-app browser was not verified.
+There is no fresh full-browser visual/layout/accessibility validation.
+No user PDFs were used as test fixtures. Test documents were generated synthetically.
+
+EARLIER FUNCTIONAL CHECKS (23 OCTOBER 2026)
+Earlier releases passed offline Chrome/Edge startup, OCR, AES encryption, conservative
+redaction, comparison, forms and certificate-signature tests. Those broad browser suites
+were not rerun for this revision; source regression scripts remain included.
+
+SCOPE AND RETENTION
+Recovery is stored in the browser profile/origin when IndexedDB is available. Quota,
+private browsing, browser eviction, clearing site data or changing origin can affect it.
+file:// compatibility is browser-dependent and indicated by the app save status.
+Local working copies may be unlocked and retain original/undo content after redacted
+exports; remove closed copies from Library when appropriate. Download PDFs/workspaces
+for backup or transfer. Certificate passwords and signing keys are not persisted.
+The application remains an offline PDF toolkit with README.txt limitations; it does
+not claim complete Acrobat parity or standards/certificate-trust certification.
