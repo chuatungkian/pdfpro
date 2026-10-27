@@ -6,6 +6,8 @@ Open pdfpro.html (or index.html from the GitHub package) in current desktop
 Chrome, Edge, Firefox, or Safari. No installation, accounts, or network access
 are needed by the application. Chrome and Edge are the browsers tested here.
 The app may take a few seconds to unpack its embedded engines on first launch.
+The current link/functionality revision was checked with native PDF processing and a
+controlled test DOM; a fresh live-browser layout check was not available.
 
 COMPACT SINGLE-FILE PACKAGE
 The build enforces a strict limit of 25,000,000 bytes for the HTML. PDF/OCR
@@ -41,6 +43,15 @@ and pending redactions stay with that document. Use the x on a tab to close it.
 Unsaved edits or pending redactions prompt before closing. New, sample and
 restored workspace documents also open new tabs. Images selected together become
 one new PDF tab, separately from any selected PDFs.
+PDF pages now form one continuous vertical stack. Scroll with your mouse wheel,
+trackpad, scrollbar or touch to move through the document. The page field, compact
+toolbar summary and bottom preview selection follow the page you are reading.
+Previous/next, page-number entry and bottom previews still jump to a page within
+the stack. Nearby pages render on demand with a bounded canvas cache. Selecting
+text, viewing a comment or starting an annotation on another visible page uses
+that page. Scrolling cancels an unfinished pen/area gesture. Reading page, zoom
+and scroll position stay with each tab and recover locally. Earlier saved views
+are converted to the matching page in the continuous layout when resumed.
 IndexedDB automatically retains working documents and edits in this browser.
 Open tabs are restored at startup. Closed tabs remain in Library for reopening.
 Home, beside the document tabs, shows up to six recent files with first-page
@@ -78,6 +89,66 @@ Done/Escape to finish. Browsing tool categories does not cancel the current tool
 Save PDF downloads a new copy. Undo/redo history is also kept in local recovery.
 Save workspace includes the current PDF and pending redaction marks in a
 portable .pdfpro file. Download backups for important work or transfer to another browser.
+
+LINKS
+Choose Edit > Add link and drag over the text or area that should become clickable.
+The dialogue accepts a website URL, email address or a page in the same PDF. A bare
+website address such as example.com becomes an HTTPS URL. Invalid input stays in
+the dialogue for correction. Link placement remains selected for repeated use.
+Choose Done or click Add link again to follow links. Website/email links use the
+browser's normal handler; websites open separately. Page links jump within the
+continuous document. The small arrow beside a link opens its edit/remove dialogue.
+Undo/redo and local recovery retain native PDF links. Links from existing PDFs also
+appear in the viewer. Unsupported destination schemes are not opened.
+
+FEATURE AUDIT
+FEATURE-AUDIT.txt in the GitHub package (or pdfpro-FEATURE-AUDIT.txt beside the
+standalone HTML) maps all 64 distinct tool actions to the regression suites used.
+The PDF worker, OCR core and English model are executed with real synthetic PDFs
+and images in a controlled worker runtime. Tests inspect PDF/text/image/JSON/ZIP
+outputs, including complete form and certificate-signing UI workflows. A fresh
+live-browser layout/print/download/profile test remains unavailable. No user PDFs
+or credentials are used by the tests. Existing limitations below still apply.
+OCR output retains line grouping for phrase search and plain-text extraction.
+
+MERGE & SPLIT
+Open a PDF, choose Organise > Merge & split. The active edited PDF is the first
+source. Add PDFs imports additional documents as inactive tabs; choose an open
+tab or locally saved PDF in Sources & settings to add its current working copy.
+Drag source files or use their up/down arrows to set merged page order. Removing
+a source from the plan keeps its document tab and local copy.
+
+Use Split after page N below a preview to add a split, or Remove split after page N
+to remove it. Clicking the preview itself also toggles that split. The Split points
+field stays visible above the preview grid even when Sources & settings is collapsed.
+Enter 3,7 and choose Apply split points to split after pages 3 and 7. The selected
+points, grouped ranges and output count update together. Maroon markers identify the cuts;
+the final page always ends the last output. Markers belong to source pages and
+follow them if files are reordered. Alternatively enter grouped ranges such as
+1-3,4-7,8-10 and choose Apply ranges: these create three PDFs. Groups must cover
+all pages exactly once, in order. Split every page and Reset splits are shortcuts.
+Output names, page ranges and counts appear before generation. Edit the filename
+prefix to name the outputs. Previews load on demand in batches of up to 60 pages;
+use the arrow buttons above Page previews to browse subsequent batches.
+
+Download ZIP produces the grouped PDFs and a README with source order/ranges.
+Where supported, Save As opens at the start of the click; otherwise a normal
+download starts after generation. Save generated ZIP remains available in the
+workspace for retrying the download. Changing the plan or leaving the workspace
+clears that generated link. Create merged tab opens all ordered pages as one new
+working PDF, independently of the split markers. Source PDFs remain unchanged.
+
+Plans save with their owner PDF in IndexedDB when local saving is available.
+They are local plans, not part of the PDF or portable .pdfpro workspace export.
+Reopening Merge & split restores its source order, cuts and naming. Source edits
+require Refresh sources & reset splits and a new review; missing sources must be
+removed or restored. Pending redactions must be applied or cleared before export.
+Documents with form widgets require Flatten form first, including certificate
+signature widgets. New copied PDFs cannot retain original certificate validity.
+Flattening creates a changed working copy and requires reviewing/resetting the plan.
+Encrypted uploads ask for the password and add an unlocked working copy; use
+Encrypt PDF separately to protect an exported PDF. Back to PDF returns to the
+owner's page/zoom/scroll position. Up to 200 sources are supported in a plan.
 
 LOCAL LIBRARY AND RECOVERY
 Local autosave uses IndexedDB, with no server or account. PDF bytes, original

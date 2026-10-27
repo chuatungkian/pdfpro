@@ -1,19 +1,24 @@
 # pdfpro
 
-A private, offline PDF workspace packaged as one HTML file. The current `index.html` is **20.21 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
+An offline PDF workspace packaged as one HTML file. The current `index.html` is **20.33 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
 
 ## Use
 
 Download `index.html` (or the identical `pdfpro.html`) and open it in a current desktop browser. The app needs no installation, account or network connection after download. PDFs are processed on your device.
 
-The workspace includes document tabs, local recovery, annotations and freehand drawing, page organisation, added text/images, forms, OCR, comparison, encryption, redaction, signatures and exports. The page toolbar can float, minimise, or lock across the top or bottom of the working area.
+The workspace includes document tabs, local recovery, continuous page scrolling, annotations and freehand drawing, page organisation, added text/images, forms, OCR, comparison, encryption, redaction, signatures and exports. The page toolbar can float, minimise, or lock across the top or bottom of the working area.
+
+**Organise > Merge & split** combines current edited PDFs from open tabs, the local library or uploads. Reorder sources, add visual split points or grouped page ranges, preview filenames, download grouped PDFs as a ZIP, or create a merged working tab. Plans recover locally and detect changed or missing sources.
+
+**Edit > Add link** supports websites, email addresses and pages in the same PDF. Draw the link area, set the destination, then choose Done to follow links. The small arrow edits or removes a link. Native PDF links survive undo/redo, exports and local recovery. OCR phrase search and plain-text line grouping are also checked in this revision.
 
 IndexedDB retains documents and edits when permitted by the browser. Its availability for local files depends on the browser; check the save indicator. Local recovery may include unlocked copies, originals and undo history. Download important work and use Library to remove closed stored copies when needed.
 
 ## Documentation and verification
 
 - [User guide and limitations](README.txt)
-- [Validation results](VALIDATION.txt): 781 automated assertions, including controlled DOM tests with real PDF processing. Live browser visual verification remains unavailable for this revision.
+- [Validation results](VALIDATION.txt): 1,270 counted assertions passed, plus certificate-signing and package-integrity checks. Tests use real PDF processing and embedded engines in controlled DOM/worker runtimes.
+- [Feature audit](FEATURE-AUDIT.txt): all 64 distinct tool actions mapped to regression workflows. Live browser layout, external navigation, downloads and print-dialogue behaviour remain unverified.
 - [Checksums](SHA256SUMS.txt)
 
 pdfpro is an offline PDF toolkit. It does not claim complete Adobe Acrobat feature parity, PDF/A or PDF/UA certification, or certificate identity/trust validation.
