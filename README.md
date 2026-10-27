@@ -1,12 +1,16 @@
 # pdfpro
 
-An offline PDF workspace packaged as one HTML file. The current `index.html` is **20.33 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
+An offline PDF workspace packaged as one HTML file. The current `index.html` is **20.38 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
 
 ## Use
 
 Download `index.html` (or the identical `pdfpro.html`) and open it in a current desktop browser. The app needs no installation, account or network connection after download. PDFs are processed on your device.
 
 The workspace includes document tabs, local recovery, continuous page scrolling, annotations and freehand drawing, page organisation, added text/images, forms, OCR, comparison, encryption, redaction, signatures and exports. The page toolbar can float, minimise, or lock across the top or bottom of the working area.
+
+**Edit > Direct edit** lets you click a visible PDF text line and edit it in place, retaining its original native font programme, colour, opacity, size and baseline. Compatible embedded fonts load locally for the typing preview. New pdfpro text boxes retain their device-font recipe for editing as a complete box. Missing font characters, overflow and unsupported encodings are refused; scanned, outlined and older image-backed text are excluded. The tool remains selected for repeated edits.
+
+Edits and inserted items retain the current page and both scroll offsets. Visual signatures combine a typed name and drawing, with the name below the drawing. Processing uses a circular outline that traces the circumference for unknown progress and fills as progress is reported.
 
 **Organise > Merge & split** combines current edited PDFs from open tabs, the local library or uploads. Reorder sources, add visual split points or grouped page ranges, preview filenames, download grouped PDFs as a ZIP, or create a merged working tab. Plans recover locally and detect changed or missing sources.
 
@@ -17,8 +21,8 @@ IndexedDB retains documents and edits when permitted by the browser. Its availab
 ## Documentation and verification
 
 - [User guide and limitations](README.txt)
-- [Validation results](VALIDATION.txt): 1,270 counted assertions passed, plus certificate-signing and package-integrity checks. Tests use real PDF processing and embedded engines in controlled DOM/worker runtimes.
-- [Feature audit](FEATURE-AUDIT.txt): all 64 distinct tool actions mapped to regression workflows. Live browser layout, external navigation, downloads and print-dialogue behaviour remain unverified.
+- [Validation results](VALIDATION.txt): the earlier functional baseline passed 1,270 counted assertions, plus certificate-signing and package-integrity checks. The latest Direct edit/view-retention revision adds 576 native PDF and controlled-interaction checks, with affected regression suites rerun. Actual-package integrity and source export also pass.
+- [Feature audit](FEATURE-AUDIT.txt): all 65 distinct tool actions mapped to regression workflows. Live browser layout, font loading, external navigation, downloads and print-dialogue behaviour remain unverified.
 - [Checksums](SHA256SUMS.txt)
 
 pdfpro is an offline PDF toolkit. It does not claim complete Adobe Acrobat feature parity, PDF/A or PDF/UA certification, or certificate identity/trust validation.

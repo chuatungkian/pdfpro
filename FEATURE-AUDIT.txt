@@ -1,14 +1,35 @@
 PDFPRO FEATURE AUDIT
 27 October 2026 · Asia/Singapore
-Standalone HTML SHA256: 1d1fcf01d4fd6597818d5ecfd83020ff106a763029c9bacae7c06638f99f4ff4
+Standalone HTML SHA256: 39a30c44d32dbdc52e3300ae2cc1484a1999a403dc496524b0caaabb0027f3ec
 
 RESULT
-64 distinct tool actions are mapped below to passing regression workflows.
-The revision passed 1,270 counted assertions plus the certificate-signing suite
-and actual-package integrity checks. This is a scoped automated audit, not a
-certification that every possible PDF, device or browser behaviour is supported.
+65 distinct tool actions are mapped below to passing regression workflows.
+The functional baseline passed 1,270 counted assertions plus certificate-signing
+and actual-package integrity checks. The later circular-indicator presentation
+update reran 165 targeted workflow/continuous-page/source-export assertions plus
+syntax and package-integrity checks. The visual-signature fix then passed 281
+targeted composition/placement/font/workflow/source-export assertions and a native
+PDF rendering inspection. The Direct edit/view-retention revision adds 576 native and controlled-interaction
+assertions, with original-font glyphs checked against independent PDF renders.
+Existing affected font/placement/scroll/signature/link/persistence/drawing/workflow
+suites were rerun. Live browser dialogue/animation remains unverified.
+This is a scoped automated audit, not a certification that every possible PDF,
+device or browser behaviour is supported.
 
 FIXES
+- Direct edit opens an on-page editor for visible PDF text runs, retaining their
+  source font programme, colour, alpha, size and baseline. New pdfpro text boxes
+  retain their system-font recipe; compatible embedded fonts load locally for typing.
+- Missing glyphs, overflowing replacements and unsupported encodings are refused.
+  Scanned/outlined text and older image-backed boxes cannot be edited directly.
+- Document rebuilds restore the current page and both scroll offsets after edits,
+  insertions and undo/redo, including simulated browser layout clamping.
+- Typed names and drawn signatures are combined without erasing the drawing, with
+  the typed name underneath. Standalone modes, clear/import, undo/redo and local
+  recovery remain supported.
+- Processing now uses a circular outline: unknown work traces the circumference,
+  while reported progress fills the ring and shows its percentage. Cancel, task
+  details, native progress semantics and reduced-motion preferences are retained.
 - Created and imported PDF links now have clickable areas in the viewer.
 - Add link validates inside its dialogue and accepts website/email destinations
   or a page in the same PDF. Link bounds survive rotation and nonzero page origins.
@@ -67,6 +88,9 @@ Crop area [crop]
 
 Resize page [resize]
   PASS in feature-audit-test.mjs
+
+Direct edit [directedit]
+  PASS in direct-text-test.mjs, direct-edit-interactions-test.mjs
 
 Add text [text]
   PASS in feature-audit-test.mjs
@@ -180,7 +204,7 @@ Encrypt PDF [encrypt]
   PASS in feature-audit-test.mjs
 
 Visual signature [signature]
-  PASS in placement-tools-test.mjs
+  PASS in visual-signature-test.mjs, placement-tools-test.mjs
 
 Certificate sign [certsign]
   PASS in feature-audit-test.mjs

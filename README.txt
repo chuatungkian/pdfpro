@@ -35,8 +35,33 @@ On the move handle, arrow keys move the floating toolbar and Shift moves further
 Floating positions remain inside the working area as its size changes. Layout,
 position and minimisation are remembered locally when local storage is available.
 Fullscreen includes both the document and its page controls.
+Processing uses a circular outline in place of the horizontal bar. Unknown progress
+traces around the circumference; reported progress fills the ring and shows its
+percentage. Task details and Cancel remain available. Reduced-motion preferences
+disable the tracing animation, and native progress semantics remain accessible.
 
 QUICK START
+Choose Edit > Direct edit, then click an outlined text line on the PDF. Type the
+replacement and choose Apply (or press Enter); Cancel/Escape dismisses the edit.
+The saved PDF reuses the original native font programme, colour, opacity, size
+and baseline. Compatible embedded TrueType/OpenType fonts also load locally for
+the typing preview; otherwise it uses a matching installed face or a fallback.
+Direct edit stays selected until another tool, Done or the same button is chosen.
+Edits, signatures and other inserted items keep the current page and scroll offset.
+Undo/redo and IndexedDB recovery retain applied edits and the reading position.
+
+Direct edit changes one visible PDF text run at a time; it does not reflow whole
+paragraphs. Replacements that overlap nearby text, extend off the page, or require
+characters missing from the source font are refused without changing the working
+PDF. Unsupported writing directions/encodings are also refused. Scanned images,
+outlined glyphs, invisible OCR layers and older image-backed text boxes have no
+editable visible font data. OCR makes scans searchable rather than directly editable.
+New text boxes added with this version retain their font recipe and can be edited
+as a complete box, preserving size/colour and fitting inside the original area.
+They use the same system font settings on this device; unavailable fonts fall back.
+Annotations continue to use the comment tools. Moving to another page/tool or
+scrolling dismisses an unapplied inline edit. Apply first to retain typed changes.
+
 Open PDFs with Open files or the + beside the document tabs. Each PDF opens in
 its own tab. Click a tab to switch; edits, undo/redo, page position, zoom, search
 and pending redactions stay with that document. Use the x on a tab to close it.
@@ -103,7 +128,7 @@ appear in the viewer. Unsupported destination schemes are not opened.
 
 FEATURE AUDIT
 FEATURE-AUDIT.txt in the GitHub package (or pdfpro-FEATURE-AUDIT.txt beside the
-standalone HTML) maps all 64 distinct tool actions to the regression suites used.
+standalone HTML) maps all 65 distinct tool actions to the regression suites used.
 The PDF worker, OCR core and English model are executed with real synthetic PDFs
 and images in a controlled worker runtime. Tests inspect PDF/text/image/JSON/ZIP
 outputs, including complete form and certificate-signing UI workflows. A fresh
@@ -231,6 +256,10 @@ work. Only the rebuilt export is sanitised; original files and other copies rema
 
 SIGNATURES
 Visual signatures are images, separate from certificate signatures.
+Type your name, draw a signature, or combine both. A combined visual signature
+keeps the drawing and places the typed name below it in the chosen font. Clear
+drawing leaves the typed name intact. Importing PNG/JPEG uses that image by itself.
+The combined image stays available for repeated placement and local recovery.
 Certificate signing supports RSA >=2048-bit PKCS12/P12/PFX, detached CMS SHA-256,
 and incremental approval signatures. Certificate signature widgets are invisible;
 add a visual signature separately if desired. Current RSA detached signatures

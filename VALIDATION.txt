@@ -1,8 +1,47 @@
-PDFPRO — LINK FIXES AND FULL TOOL WORKFLOW AUDIT
+PDFPRO — DIRECT EDIT AND STABLE DOCUMENT POSITION
 Date: 27 October 2026 (Asia/Singapore)
-Standalone HTML SHA256: 1d1fcf01d4fd6597818d5ecfd83020ff106a763029c9bacae7c06638f99f4ff4
+Standalone HTML SHA256: 39a30c44d32dbdc52e3300ae2cc1484a1999a403dc496524b0caaabb0027f3ec
+
+LATEST REVISION CHECKS
+node direct-text-test.mjs: 518 assertions passed using native MuPDF PDFs.
+- Twelve standard font variants across four page rotations and nonzero crop origins.
+- Original font size, colour, weight/italic, baseline and page transform retained.
+- Independent original-font PDF glyph renders and unchanged surrounding PDF pixels.
+- Embedded Unicode font reuse/preview data, repeated edits, empty text and safe refusal.
+- Gray/CMYK/RGB colour spaces, transparency and UserUnit-scaled page coordinates.
+node direct-edit-interactions-test.mjs: 58 assertions passed in a controlled DOM.
+- Edit > Direct edit, inline apply/cancel/Escape, persistent tool and source styling.
+- Missing glyph errors keep the original PDF and typed input available to correct.
+- Native and new app text box edits remove the previous appearance/search text.
+- Page 5 retains both scroll offsets after edits, signatures, rectangles, added text,
+  undo and redo. Rebuilds explicitly simulate a browser clamping scroll to zero.
+- Real subsequent scroll changes still track the page; local bytes/views recover.
+Rerun suites: continuous pages (66), visual signatures (35), fonts/previews (107),
+placement tools (40), links (68), persistence/navigation (64), freehand (65),
+feature workflows (82), UI refresh (75) and tabs (115). All passed.
+Native PDF proof imagery was rendered and visually inspected. Browser layout and
+FontFace loading remain subject to the verification limit below.
 
 CHANGES
+- Direct edit changes a visible PDF text run using its original native font data,
+  colour, alpha, size and baseline. Compatible embedded fonts load locally for the
+  typing preview; system/matching fallback fonts are used when unavailable.
+- New app text boxes retain their appearance recipe for editing as a complete box.
+  Missing source glyphs, overflow/overlap and unsupported encodings are refused.
+  Scanned/outlined text, invisible OCR and legacy image-backed boxes are excluded.
+- Document rebuilds restore the active page and both scroll offsets. The restored
+  position is saved locally; subsequent intentional scrolling remains responsive.
+- Visual signatures compose a typed name and drawing onto a separate transparent
+  image, with the name below the drawing. Confirming no longer clears drawn strokes.
+- Typed-only, drawn-only and standalone image import remain supported. Clear drawing
+  preserves typed input. Pen taps, primary-pointer ownership and release samples work.
+- Combined PNG/PDF appearance, repeated placement, undo/redo and local recovery are
+  checked. Empty input stays editable in the dialogue; cancelling retains prior state.
+- The horizontal processing bar is replaced visually by a thin circular outline.
+  Unknown progress traces the circumference; reported progress fills the ring and
+  displays a percentage. Progress values are clamped to the valid 0-100% range.
+- Job details, cancellation, completion/error cleanup and the labelled native
+  progress element remain. Reduced-motion settings disable the looping trace.
 - Native PDF link areas are exposed as clickable viewer anchors. External web/email
   links use normal browser handlers; internal page links jump within the document.
 - Add link accepts URLs, email addresses and PDF-page destinations, validates inside
@@ -13,7 +52,7 @@ CHANGES
   buffers are freed after copying output bytes.
 - OCR words on a line share their baseline/size. Plain-text extraction uses line
   grouping instead of preserve-spans, avoiding spurious line breaks between words.
-- All 64 distinct tool actions are mapped in FEATURE-AUDIT.txt. Expanded controlled
+- All 65 distinct tool actions are mapped in FEATURE-AUDIT.txt. Expanded controlled
   UI workflows exercise page tools, forms, OCR, comparison, protection, signing,
   every export type, all batch operations and a controlled print request.
 - PDF pages form a continuous vertical stack, with wheel/trackpad/scrollbar/touch
@@ -110,11 +149,24 @@ CHANGES
   this retention is explained in Library/About/README. Downloads remain separate.
 
 CURRENT REVISION CHECKS
+The signature update passed 35 composition checks and reran persistent placement
+(40), fonts/previews (107), full feature workflows (82) and actual-package source
+export UI checks (17): 281 targeted assertions, plus syntax and package integrity.
+A synthetic PDF rendering was inspected to confirm both drawing and typed name.
+No fresh live-browser dialogue/layout validation was available.
+
+node visual-signature-test.mjs: 35 assertions passed using native PNG/PDF pixels
+and a controlled DOM with simulated IndexedDB. Drawing/name regions both contain
+visible ink, background remains transparent, and the source canvas stays unchanged.
+Typed-only, drawn-only, clear, pen tap, invalid/cancelled input, empty import MIME,
+saved native PDF, undo/redo, persistent placement and fresh-instance recovery pass.
+
+FUNCTIONAL AUDIT BASELINE (27 OCTOBER 2026, BEFORE THIS PRESENTATION CHANGE)
 1,270 counted assertions passed: prior PDF/DOM/storage/packaging suites (781),
 merge/split planning (111) and UI (115), continuous pages (66), native engine (29),
 links (68), complete feature workflows (82), embedded engine/OCR worker execution
 (13) and OCR text-layer checks (5). Certificate signing and actual-package integrity
-checks also passed. Feature audit coverage maps all 64 distinct tool IDs.
+checks also passed. Feature audit coverage maps all 65 distinct tool IDs.
 
 node links-test.mjs: 68 assertions passed using native PDF links, controlled DOM
 and simulated IndexedDB. URL canonicalisation, email/internal destinations, invalid
