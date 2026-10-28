@@ -41,26 +41,46 @@ percentage. Task details and Cancel remain available. Reduced-motion preferences
 disable the tracing animation, and native progress semantics remain accessible.
 
 QUICK START
-Choose Edit > Direct edit, then click an outlined text line on the PDF. Type the
-replacement and choose Apply (or press Enter); Cancel/Escape dismisses the edit.
-The saved PDF reuses the original native font programme, colour, opacity, size
-and baseline. Compatible embedded TrueType/OpenType fonts also load locally for
-the typing preview; otherwise it uses a matching installed face or a fallback.
-Direct edit stays selected until another tool, Done or the same button is chosen.
-Edits, signatures and other inserted items keep the current page and scroll offset.
-Undo/redo and IndexedDB recovery retain applied edits and the reading position.
+Choose Edit > Direct edit. Paragraph is the default: click an outlined paragraph,
+edit its text and choose Apply. Its lines rewrap at the selected width, so removing
+words pulls the following text up instead of leaving gaps. Enter inserts a hard
+line break; Ctrl+Enter (Cmd+Enter on Mac) applies. Cancel/Escape dismisses the edit.
 
-Direct edit changes one visible PDF text run at a time; it does not reflow whole
-paragraphs. Replacements that overlap nearby text, extend off the page, or require
-characters missing from the source font are refused without changing the working
-PDF. Unsupported writing directions/encodings are also refused. Scanned images,
-outlined glyphs, invisible OCR layers and older image-backed text boxes have no
-editable visible font data. OCR makes scans searchable rather than directly editable.
-New text boxes added with this version retain their font recipe and can be edited
-as a complete box, preserving size/colour and fitting inside the original area.
-They use the same system font settings on this device; unavailable fonts fall back.
-Annotations continue to use the comment tools. Moving to another page/tool or
-scrolling dismisses an unapplied inline edit. Apply first to retain typed changes.
+Choose Edit as in tool settings or the on-page editor:
+- Paragraph: edit a detected paragraph as continuous text, with automatic wrapping.
+- Line: change a single visual line in place without reflowing its neighbours.
+- Text chunk: drag around complete lines or several paragraphs, then edit/reflow
+  them together. Removing old line/paragraph breaks closes gaps in that selection.
+
+Width (pt) controls wrapping without reducing the font size. It defaults to the
+original text width and is retained after an edit, even when the paragraph becomes
+shorter. PDF paragraph boundaries are inferred from text geometry; use Text chunk
+when automatic detection does not include the text you intend to change. A chunk
+uses one text column and writing direction. Reflow stays on the current page;
+unselected paragraphs, artwork and page elements do not move. To pull several
+paragraphs together, include them in the same chunk. Growth that would overlap
+unselected text or leave the page is refused; adjust width or select a larger chunk.
+
+The saved PDF reuses original native font programmes, colours, opacity and sizes.
+Unchanged mixed-style words retain their styles; replacement words inherit the
+style of the source text they replace. New inserted words inherit a neighbouring
+style. The first baseline stays in place; following lines move as text rewraps.
+Compatible embedded TrueType/OpenType fonts load locally for the typing preview;
+otherwise it uses a matching installed face or a fallback. A mixed-style paragraph
+uses its first style in the typing preview; source styles are retained in the PDF.
+The editing scope stays selected and is remembered locally. Applied edits, original
+wrapping widths, undo/redo and reading position recover through IndexedDB.
+
+Missing source-font characters and unsupported writing directions/encodings are
+refused without changing the working PDF. Scanned images, outlined glyphs, invisible
+OCR layers and older image-backed text boxes have no editable visible font data.
+OCR makes scans searchable rather than directly editable. New pdfpro text boxes
+retain their font recipe and are edited as a complete box, preserving font settings
+and fitting inside the original area. They use system fonts on this device;
+unavailable fonts fall back. Annotations continue to use the comment tools.
+Direct edit stays selected until another tool, Done or the same button is chosen.
+Edits and inserted items keep the current page and scroll offset. Apply or cancel
+before changing scope; changing page/tool or scrolling dismisses an unapplied edit.
 
 Open PDFs with Open files or the + beside the document tabs. Each PDF opens in
 its own tab. Click a tab to switch; edits, undo/redo, page position, zoom, search

@@ -1,6 +1,6 @@
 # pdfpro
 
-An offline PDF workspace packaged as one HTML file. The current `index.html` is **20.38 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
+An offline PDF workspace packaged as one HTML file. The current `index.html` is **20.40 MB** and includes its PDF engines, English OCR model, Inter font and downloadable source bundle.
 
 ## Use
 
@@ -8,7 +8,9 @@ Download `index.html` (or the identical `pdfpro.html`) and open it in a current 
 
 The workspace includes document tabs, local recovery, continuous page scrolling, annotations and freehand drawing, page organisation, added text/images, forms, OCR, comparison, encryption, redaction, signatures and exports. The page toolbar can float, minimise, or lock across the top or bottom of the working area.
 
-**Edit > Direct edit** lets you click a visible PDF text line and edit it in place, retaining its original native font programme, colour, opacity, size and baseline. Compatible embedded fonts load locally for the typing preview. New pdfpro text boxes retain their device-font recipe for editing as a complete box. Missing font characters, overflow and unsupported encodings are refused; scanned, outlined and older image-backed text are excluded. The tool remains selected for repeated edits.
+**Edit > Direct edit** offers **Paragraph** (default), **Line** and dragged **Text chunk** scopes. Paragraph and chunk edits rewrap at the chosen width, closing gaps inside the selection. Include several paragraphs in one chunk to pull them together. Original native font programmes, colours, opacity and sizes remain, with unchanged inline styles retained and replacement words inheriting source styles. The first baseline stays in place; following lines move as text rewraps. Width and editing scope are remembered, and applied edits recover locally. Reflow stays on one page and avoids unselected text.
+
+Choose the editing scope in tool settings or the on-page editor. **Width (pt)** controls wrapping; Enter adds a hard break and Ctrl+Enter (Cmd+Enter on Mac) applies a paragraph/chunk edit. Compatible embedded fonts load locally for typing previews. New pdfpro text boxes retain their device-font recipe for editing as a complete box. Missing font characters, overflow and unsupported encodings are refused; scanned, outlined and older image-backed text are excluded. The tool remains selected for repeated edits.
 
 Edits and inserted items retain the current page and both scroll offsets. Visual signatures combine a typed name and drawing, with the name below the drawing. Processing uses a circular outline that traces the circumference for unknown progress and fills as progress is reported.
 
@@ -21,7 +23,7 @@ IndexedDB retains documents and edits when permitted by the browser. Its availab
 ## Documentation and verification
 
 - [User guide and limitations](README.txt)
-- [Validation results](VALIDATION.txt): the earlier functional baseline passed 1,270 counted assertions, plus certificate-signing and package-integrity checks. The latest Direct edit/view-retention revision adds 576 native PDF and controlled-interaction checks, with affected regression suites rerun. Actual-package integrity and source export also pass.
+- [Validation results](VALIDATION.txt): the earlier functional baseline passed 1,270 counted assertions, followed by 576 Direct edit/view-retention checks. The latest paragraph/chunk revision adds 188 native PDF and controlled-interaction checks, with affected source-font, editing, layout, storage and navigation suites rerun. Actual-package integrity and source export also pass.
 - [Feature audit](FEATURE-AUDIT.txt): all 65 distinct tool actions mapped to regression workflows. Live browser layout, font loading, external navigation, downloads and print-dialogue behaviour remain unverified.
 - [Checksums](SHA256SUMS.txt)
 

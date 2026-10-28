@@ -1,8 +1,21 @@
-PDFPRO — DIRECT EDIT AND STABLE DOCUMENT POSITION
-Date: 27 October 2026 (Asia/Singapore)
-Standalone HTML SHA256: 39a30c44d32dbdc52e3300ae2cc1484a1999a403dc496524b0caaabb0027f3ec
+PDFPRO — PARAGRAPH, LINE AND TEXT-CHUNK REFLOW
+Date: 28 October 2026 (Asia/Singapore)
+Standalone HTML SHA256: 321b81606c2b91ebc0a5798921baa22f5f9228d2f9a640633d38b2b6c415c608
 
-LATEST REVISION CHECKS
+PARAGRAPH/CHUNK REVISION CHECKS (28 OCTOBER 2026)
+node direct-reflow-test.mjs: 145 assertions passed with native PDF bytes/pixels.
+- Paragraph detection, soft-line joining, shortening/gap closing and longer wrapping.
+- Original fonts, colours, inline style inheritance, rotations and nonzero crop origins.
+- Retained wrapping widths, repeated edits, multi-paragraph chunks and safe refusal.
+- Unselected paragraphs/artwork remain pixel-identical; native proof visually inspected.
+node direct-reflow-interactions-test.mjs: 43 assertions passed in a controlled DOM.
+- Default Paragraph, Line switching, dragged Text chunk and editable wrapping width.
+- Enter/Ctrl+Enter semantics, draft protection, Apply/cancel and source-font errors.
+- Undo/redo, page-5 scroll retention, scope persistence and local recovery.
+Affected source-font/Direct edit, layout/font, navigation and storage suites were
+rerun for this revision. Browser layout/FontFace behaviour remains unverified.
+
+PRIOR DIRECT EDIT CHECKS (RERUN WHERE AFFECTED)
 node direct-text-test.mjs: 518 assertions passed using native MuPDF PDFs.
 - Twelve standard font variants across four page rotations and nonzero crop origins.
 - Original font size, colour, weight/italic, baseline and page transform retained.
@@ -23,6 +36,13 @@ Native PDF proof imagery was rendered and visually inspected. Browser layout and
 FontFace loading remain subject to the verification limit below.
 
 CHANGES
+- Paragraph (default), Line and Text chunk editing scopes. Paragraph/chunk edits
+  reflow at a chosen width, closing gaps inside the selected text. Several paragraphs
+  can be included in one dragged chunk, while unselected page content stays in place.
+- Original font programmes, colours, sizes, first baseline and unchanged inline styles
+  remain; changed words inherit source styles. Wrapping widths survive later edits.
+- Inline/tool scope controls, draft protection, original-size wrapping, remembered
+  scope and local recovery. Growth beyond the page or into other text is refused.
 - Direct edit changes a visible PDF text run using its original native font data,
   colour, alpha, size and baseline. Compatible embedded fonts load locally for the
   typing preview; system/matching fallback fonts are used when unavailable.

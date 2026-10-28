@@ -1,6 +1,6 @@
 PDFPRO FEATURE AUDIT
-27 October 2026 · Asia/Singapore
-Standalone HTML SHA256: 39a30c44d32dbdc52e3300ae2cc1484a1999a403dc496524b0caaabb0027f3ec
+28 October 2026 · Asia/Singapore
+Standalone HTML SHA256: 321b81606c2b91ebc0a5798921baa22f5f9228d2f9a640633d38b2b6c415c608
 
 RESULT
 65 distinct tool actions are mapped below to passing regression workflows.
@@ -12,11 +12,19 @@ targeted composition/placement/font/workflow/source-export assertions and a nati
 PDF rendering inspection. The Direct edit/view-retention revision adds 576 native and controlled-interaction
 assertions, with original-font glyphs checked against independent PDF renders.
 Existing affected font/placement/scroll/signature/link/persistence/drawing/workflow
-suites were rerun. Live browser dialogue/animation remains unverified.
+suites were rerun. The paragraph/chunk reflow revision then adds 188 native PDF
+and controlled UI assertions, with affected Direct edit/layout/storage suites rerun.
+Live browser dialogue/animation remains unverified.
 This is a scoped automated audit, not a certification that every possible PDF,
 device or browser behaviour is supported.
 
 FIXES
+- Direct edit offers Paragraph (default), Line and dragged Text chunk scopes.
+  Paragraph/chunk text rewraps at the chosen width, closing gaps inside the selected
+  flow. Source font programmes, colours, sizes and unchanged inline styles remain.
+- Inline/tool scope controls, wrapping width, draft protection and remembered scope
+  accompany gap closing, original-width retention, undo/redo and local recovery.
+  Flow stays on one page and avoids unselected text; scanned/outlined text is excluded.
 - Direct edit opens an on-page editor for visible PDF text runs, retaining their
   source font programme, colour, alpha, size and baseline. New pdfpro text boxes
   retain their system-font recipe; compatible embedded fonts load locally for typing.
@@ -90,7 +98,7 @@ Resize page [resize]
   PASS in feature-audit-test.mjs
 
 Direct edit [directedit]
-  PASS in direct-text-test.mjs, direct-edit-interactions-test.mjs
+  PASS in direct-text-test.mjs, direct-edit-interactions-test.mjs, direct-reflow-test.mjs, direct-reflow-interactions-test.mjs
 
 Add text [text]
   PASS in feature-audit-test.mjs
